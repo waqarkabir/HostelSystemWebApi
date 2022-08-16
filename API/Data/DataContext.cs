@@ -1,4 +1,6 @@
-﻿using API.Entities;
+﻿using API.Data.Configurations;
+using API.Data.Entities;
+using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -17,9 +19,11 @@ namespace API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new EmployeeConfigurations());
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Hostel> Hostels { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

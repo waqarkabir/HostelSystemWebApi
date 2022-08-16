@@ -22,9 +22,9 @@ builder.Services.AddSwaggerGen(options =>
     {
         Contact = new OpenApiContact
         {
-            Email = "salman1277@gmail.com",
-            Name = "Salman Taj",
-            Url = new Uri("https://google.com")
+            Email = "waqarkabir10@gmail.com",
+            Name = "Waqar Kabir",
+            Url = new Uri("https://www.codewithmind.com")
         },
         Description = "Sample API using .NET 6 to implement Web API with MS SQL Server and Entity Framework Core.",
         Title = "Hostel API",
@@ -32,7 +32,7 @@ builder.Services.AddSwaggerGen(options =>
         License = new OpenApiLicense
         {
             Name = "Open Source",
-            Url = new Uri("https://google.com"),
+            Url = new Uri("https://www.codewithmind.com")
         }
     });
 });
