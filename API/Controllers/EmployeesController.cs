@@ -17,6 +17,7 @@ namespace API.Controllers
             _context = context;
         }
 
+        #region Get All Employees
         [HttpGet]
         public ActionResult Get()
         {
@@ -24,12 +25,21 @@ namespace API.Controllers
             return Ok(result);
         }
 
+        #endregion
+
+        #region Get Employee By Id
+
         [HttpGet("{id}")]
         public ActionResult GetById(int id)
         {
-            var result = _context.Employees.FirstOrDefault(p => p.Id == id);
-            return Ok(result);
+            var employee = _context.Employees.FirstOrDefault(p => p.Id == id);
+            if (employee == null) return NotFound();
+            
+            return Ok(employee);
         }
+        #endregion
+
+        #region Create New Employee
 
         [HttpPost]
         public ActionResult Create([FromBody] EmployeeCreate model)
@@ -43,8 +53,53 @@ namespace API.Controllers
             };
 
             _context.Employees.Add(employee);
-            _context.SaveChanges();
-            return Ok();
+            if (_context.SaveChanges()>0)
+            {
+                return Ok("Record Inserted Successfully.");
+            }
+            return BadRequest(ModelState);
+            
         }
+        #endregion
+
+        #region Update Existing Employee
+        [HttpPut()]
+        public ActionResult Update([FromBody] EmployeeUpdate model)
+        {
+            var employee = _context.Employees.FirstOrDefault(p => p.Id == model.Id);
+            if (employee == null) return NotFound();
+
+            if (!ModelState.IsValid) return BadRequest();
+
+            employee.Name = model.Name;
+            employee.Code = model.Code;
+
+            _context.Employees.Update(employee);
+            if (_context.SaveChanges()>0)
+            {
+                return Ok(employee);
+            }
+            return BadRequest();
+
+        }
+        #endregion
+
+        #region Update Existing Employee
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var employee = _context.Employees.FirstOrDefault(p => p.Id == id);
+            if (employee == null) return NotFound();
+
+
+            _context.Employees.Remove(employee);
+            if (_context.SaveChanges() > 0)
+            {
+                return Ok("Record Deleted Successfully!");
+            }
+            return BadRequest();
+
+        }
+        #endregion
     }
 }
