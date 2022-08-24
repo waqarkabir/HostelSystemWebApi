@@ -84,7 +84,7 @@ namespace API.Controllers
         }
         #endregion
 
-        #region Update Existing Employee
+        #region Delete Existing Employee
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
